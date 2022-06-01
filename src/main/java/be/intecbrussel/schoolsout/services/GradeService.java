@@ -4,6 +4,8 @@ public class GradeService {
 
     //TODO: Je maakt een nieuwe Grade. Je MOET een bestaande Person en Course meegeven.Jij geeft enkel de Date en gradeValue mee.
     //TODO: Zorg ervoor dat de Grade.gradeValue niet groter is dan de Course.maxGradeYouCanGet
+    //TODO: Als de User al een bestaande Grade heeft voor dit Examen, dan wordt dit examen niet toegevoegd.
+    //TODO: De datum van de Grade zit standaard by default op vandaag.
     public void createGradeForUserOnCourse(){
 
     }
