@@ -127,7 +127,7 @@ public class MainClass {
         switch (choiceTwo){
             case 1:courseService.findAllGradesFromCourse();break;//LEVEL 2
             case 2:gradeService.findAllGradesForUser();break;//LEVEL 3
-            case 3:gradeService.createGradeForUserOnCourse();break;//LEVEL 3
+            case 3:gradeService.createGradeForUserOnCourse();break;//LEVEL 4
             case 4:gradeService.updateGradeForUserOnCourse();break;//LEVEL 2
             case 5:gradeService.deleteGradeForUserOnCourse();break;//LEVEL 1
         }
