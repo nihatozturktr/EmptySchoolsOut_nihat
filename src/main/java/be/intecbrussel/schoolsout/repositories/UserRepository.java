@@ -3,6 +3,8 @@ package be.intecbrussel.schoolsout.repositories;
 import be.intecbrussel.schoolsout.data.Course;
 import be.intecbrussel.schoolsout.data.User;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 public class UserRepository {
@@ -13,11 +15,17 @@ public class UserRepository {
     }
 
     public List<User> getAll(){
-        return null;
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+        Query query = em.createQuery("Select v from User v");
+        return query.getResultList();
     }
 
 
     public void createOne(User user){
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+        em.getTransaction().begin();
+        em.persist(user);
+        em.getTransaction().commit();
 
     }
 

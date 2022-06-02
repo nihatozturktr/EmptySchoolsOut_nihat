@@ -1,11 +1,47 @@
 package be.intecbrussel.schoolsout.services;
 
 
+import be.intecbrussel.schoolsout.data.Gender;
+import be.intecbrussel.schoolsout.data.Person;
+import be.intecbrussel.schoolsout.data.User;
+import be.intecbrussel.schoolsout.repositories.UserRepository;
+
+import java.util.Scanner;
 
 public class UserService {
 
-    //TODO: Maak een user. Iedere User die je maakt MOET ook een Person hebben
+    private UserRepository userRepository;
+
+
+    public UserService() {
+        userRepository = new UserRepository();
+    }
+
+    //Maak een user. Iedere User die je maakt MOET ook een Person hebben
     public void createUser(){
+        Scanner scanner = new Scanner(System.in);
+        Person person = new Person();
+        User user = new User();
+
+        System.out.println("Give me your userName:");
+        String input = scanner.next();
+        user.setLogin(input);
+        System.out.println("Give me your passWord:");
+        input = scanner.next();
+        user.setPasswordHash(input);
+        System.out.println("Give me your firstName:");
+        person.setFirstName(scanner.next());
+        System.out.println("Give me your lastName:");
+        person.setFamilyName(scanner.next());
+        System.out.println("Give me your Gender. 0 = MALE, 1 = FEMALE, 2= NON-BINAIRY, 3 = OTHER:");
+        int number = scanner.nextInt();
+       for (Gender gender: Gender.values()){
+           if (gender.ordinal()==number){
+               person.setGender(gender);
+           }
+       }
+       user.setPerson(person);
+       userRepository.createOne(user);
 
     }
 
@@ -24,8 +60,12 @@ public class UserService {
 
     }
 
-    //TODO: Print alle users af van de database
+    //Print alle users af van de database
     public void findAllUsers(){
+        System.out.println("Here are all users:");
+        for (User user : userRepository.getAll()){
+            System.out.println(user);
+        }
 
     }
 

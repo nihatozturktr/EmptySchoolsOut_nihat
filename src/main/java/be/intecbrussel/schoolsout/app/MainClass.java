@@ -3,13 +3,15 @@ package be.intecbrussel.schoolsout.app;
 
 
 
+import be.intecbrussel.schoolsout.repositories.EMFactory;
 import be.intecbrussel.schoolsout.services.CourseService;
 import be.intecbrussel.schoolsout.services.GradeService;
 import be.intecbrussel.schoolsout.services.UserService;
 
 import java.util.Locale;
 import java.util.Scanner;
-
+//TODO: belijk hoe je usages verwijdert
+//TODO: Aviva Grade probleem
 public class MainClass {
     private static int choiceOne= 9;
     private static int choiceTwo= 9;
@@ -17,7 +19,6 @@ public class MainClass {
 
 
     public static void main(String[] args) {
-
 
 
             while (continueThis){

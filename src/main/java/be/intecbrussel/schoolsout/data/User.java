@@ -1,10 +1,16 @@
 package be.intecbrussel.schoolsout.data;
 
+import javax.persistence.*;
+
+@Entity
 public class User {
 
+    @Id
+    @Column(length = 20)
     private String login;
     private String passwordHash;
     private boolean active;
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Person person;
 
     public User() {

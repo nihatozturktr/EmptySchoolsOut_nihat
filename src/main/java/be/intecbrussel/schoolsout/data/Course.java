@@ -1,14 +1,22 @@
 package be.intecbrussel.schoolsout.data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Entity
 public class Course {
 
+    @Id
+    @GeneratedValue
     private Long id;
     private String name;
     private String description;
     private BigDecimal maxGradeYouCanGet;
+    @OneToMany(mappedBy = "course")
     private List<Grade> gradesOfCourse;
 
 

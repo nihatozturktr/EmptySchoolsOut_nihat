@@ -1,12 +1,21 @@
 package be.intecbrussel.schoolsout.data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
 public class Grade {
 
+    @Id
+    @GeneratedValue
     private Long id;
+    @ManyToOne
     private Person person;
+    @ManyToOne
     private Course course;
     private BigDecimal gradeValue;
     private LocalDate date;

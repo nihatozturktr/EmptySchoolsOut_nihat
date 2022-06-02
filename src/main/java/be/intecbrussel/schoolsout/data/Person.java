@@ -1,10 +1,16 @@
 package be.intecbrussel.schoolsout.data;
 
+import javax.persistence.*;
+
+@Entity
 public class Person {
 
+    @Id
+    @GeneratedValue
     private Integer id;
     private String firstName;
     private String familyName;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     public Person() {
