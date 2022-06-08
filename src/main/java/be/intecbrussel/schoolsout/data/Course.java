@@ -76,4 +76,15 @@ public class Course {
         this.maxGradeYouCanGet = maxGradeYouCanGet;
         this.gradesOfCourse = gradesOfCourse;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", maxGradeYouCanGet=" + maxGradeYouCanGet +
+                ", gradesOfCourse=" + gradesOfCourse +
+                '}';
+    }
 }

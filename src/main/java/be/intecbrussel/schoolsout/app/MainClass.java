@@ -28,7 +28,7 @@ public class MainClass {
 
                     switch (choiceOne){
                         case 1:choiceUsers();break;
-                        case 2:choiceUsers();break;
+                        case 2:choiceCourses();break;
                         case 3:choiceGrades();break;
                     }
 
