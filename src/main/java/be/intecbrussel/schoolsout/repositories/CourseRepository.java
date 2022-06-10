@@ -10,8 +10,9 @@ import java.util.List;
 public class CourseRepository {
 
     public Course getOneById(long id){
-        EntityManager em = EMFactory.getEmf().createEntityManager();
-        return em.find(Course.class, id);
+
+        EntityManager em= EMFactory.getEmf().createEntityManager();
+        return em.find(Course.class,id);
     }
 
     public List<Course> getAll(){
@@ -22,14 +23,31 @@ public class CourseRepository {
 
 
     public void createOne(Course course){
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+        em.getTransaction().begin();
+        em.persist(course);
+        em.getTransaction().commit();
 
     }
 
     public void updateOne(Course course){
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+        em.getTransaction().begin();
+        em.merge(course);
+        em.getTransaction().commit();
+
 
     }
 
     public void deleteOne(long id){
+
+
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+        em.getTransaction().begin();
+        em.remove(em.find(Course.class,id));
+        em.getTransaction().commit();
+
+
 
     }
 }

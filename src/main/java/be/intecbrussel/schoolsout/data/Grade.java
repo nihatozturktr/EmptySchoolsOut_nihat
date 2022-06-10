@@ -9,7 +9,6 @@ import java.time.LocalDate;
 
 @Entity
 public class Grade {
-
     @Id
     @GeneratedValue
     private Long id;

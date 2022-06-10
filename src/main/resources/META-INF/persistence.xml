@@ -5,12 +5,12 @@
 
 
 
-    <persistence-unit name="pearlDataBase">
+    <persistence-unit name="NihatDatabase">
 
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://db.intecbrussel.be:33100/student00"/>
-            <property name="javax.persistence.jdbc.user" value="student00"/>
-            <property name="javax.persistence.jdbc.password" value="student6890"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://db.intecbrussel.be:33100/student02"/>
+            <property name="javax.persistence.jdbc.user" value="student02"/>
+            <property name="javax.persistence.jdbc.password" value="student2989"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <!-- Verander of je none doet, de database update, validate, create of create-drop-->
             <property name="hibernate.hbm2ddl.auto" value="update"/>

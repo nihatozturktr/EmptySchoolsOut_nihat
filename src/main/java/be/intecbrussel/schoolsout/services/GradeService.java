@@ -35,7 +35,6 @@ public class GradeService {
     public void createGradeForUserOnCourse(){
 
         User user = new User();
-        // Person person = user.getPerson();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Give me a UserName.");
         String login = scanner.nextLine();
@@ -45,29 +44,21 @@ public class GradeService {
         int input = scanner.nextInt();
         Grade grade= new Grade();
 
-
-
         Course course = courseRepository.getOneById(input);
-
         user = userRepository.getOneById(login);
-
-
 
         Person person = user.getPerson();
         grade.setPerson(person);
         grade.setCourse(course);
         grade.setDate(LocalDate.now());
-
         grade.setGradeValue(BigDecimal.valueOf(input2));
         gradeRepository.createOne(grade);
-
 
     }
 
 
     //TODO: Delete een Grade
     public void deleteGradeForUserOnCourse(){
-
         Scanner scanner = new Scanner(System.in);
         System.out.println("Give me a User.");
         String login = scanner.nextLine();
@@ -84,12 +75,10 @@ public class GradeService {
             }
         }
 
-
     }
 
     //TODO: Je mag enkel de gradeValue veranderen. Zorg ervoor dat de Grade.gradeValue niet groter is dan de Course.maxGradeYouCanGet
     public void updateGradeForUserOnCourse(){
-
         Scanner scanner = new Scanner(System.in);
         System.out.println("Give me a User.");
         String login = scanner.nextLine();
@@ -111,13 +100,11 @@ public class GradeService {
 
             gradeRepository.updateOne(grade);
         }
-
     }
 
 
     //TODO:Geef een UserName. Gebruik de Person van de User om alle Grades terug te tonen.
-    public void findAllGradesForUser(){
-        Scanner scanner = new Scanner(System.in);
+    public void findAllGradesForUser(){Scanner scanner = new Scanner(System.in);
         System.out.println("Give me a UserName.");
         String login = scanner.nextLine();
         User user =new User();

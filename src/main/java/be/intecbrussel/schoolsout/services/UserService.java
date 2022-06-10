@@ -4,12 +4,11 @@ package be.intecbrussel.schoolsout.services;
 import be.intecbrussel.schoolsout.data.*;
 import be.intecbrussel.schoolsout.repositories.CourseRepository;
 import be.intecbrussel.schoolsout.repositories.GradeRepository;
+import be.intecbrussel.schoolsout.repositories.PersonRepository;
 import be.intecbrussel.schoolsout.repositories.UserRepository;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class UserService {
 
@@ -17,11 +16,13 @@ public class UserService {
     private UserRepository userRepository;
     private GradeRepository gradeRepository;
     private CourseRepository courseRepository;
+    private PersonRepository personRepository;
 
     public UserService() {
         courseRepository = new CourseRepository();
         userRepository = new UserRepository();
         gradeRepository = new GradeRepository();
+        personRepository = new PersonRepository();
     }
 
     //TODO: Maak een user. Iedere User die je maakt MOET ook een Person hebben
@@ -66,7 +67,6 @@ public class UserService {
         Queue<Grade> gradeQueue = new LinkedList<>();
 
         while(gradeQueue.size() > 0){
-
             Grade grade = gradeQueue.poll();
             gradeRepository.deleteOne(grade.getId());
         }
@@ -76,63 +76,64 @@ public class UserService {
     //TODO:Udate de User. Je mag enkel vragen om het volgende te updaten: User.active, Person.firstName en Person.lastName
     public void updateUser(){
         userRepository.getAll();
+        personRepository.getAllPersons();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Choose the login of which user you want to update:");
+        System.out.println("enter the userName you want to update:");
         String login = scanner.next();
+
         User user = userRepository.getOneById(login);
+        Person person = user.getPerson();
+
         System.out.println("Enter password of the user you want to update:");
         String password = scanner.next();
 
-        if (user.getPasswordHash().equals(password)){
-            System.out.println("Update information of the following user " +user+":");
+        if (user.getPasswordHash().equals(password)) {
+            System.out.println("Update information of the following user " + user + ":");
 
-            //ACTIVE STATUS
             System.out.println("Set user as active? (Y/N)");
             String activation = scanner.next();
 
-            if(activation.equals("Y")){
+            if (activation.toUpperCase(Locale.ROOT).equals("Y")) {
                 user.setActive(Boolean.TRUE);
-            } else if (activation.equals("N")) {
+            } else if (activation.toUpperCase(Locale.ROOT).equals("N")) {
                 user.setActive(Boolean.FALSE);
             } else {
                 System.out.println("Active status remains unchanged.");
             }
-            //
+            System.out.println("Do you want to change firstName? (Y/N)");
+            String changes = scanner.next();
 
-
-            //Password change
-            System.out.println("Do you want to change your password? (Y/N)");
-            String passwordActivation = scanner.next();
-
-            if(passwordActivation.equals("Y")){
+            if (changes.toUpperCase(Locale.ROOT).equals("Y")) {
                 Scanner sc = new Scanner(System.in);
-                String newPassword;
-                String newPasswordreentered;
-                do {
-                    System.out.println("(Re)Enter new Password for the following user ("+user.getLogin()+"):");
-                    newPassword = sc.next();
-                    System.out.println("Confirm new Password:");
-                    newPasswordreentered = sc.next();
-                } while (!newPassword.equals(newPasswordreentered));
-
-
-                user.setPasswordHash(newPassword);
-                System.out.println("changed");
-
+                System.out.println("enter thr new name of the person? (Y/N)");
+                String newName = sc.nextLine();
+                user.getPerson().setFirstName(newName);
             } else {
-                System.out.println("Password remains unchanged.");
+                System.out.println("Name of the person remains unchanged.");
             }
+            System.out.println("Do you want to change lastName? (Y/N)");
+            String changeLast = scanner.next();
 
-            userRepository.updateOne(user);
-            System.out.println("User has been updated.");
-
-        } else {
-            System.out.println("Incorrect username or password.");
+            if (changeLast.toUpperCase(Locale.ROOT).equals("Y")) {
+                Scanner sc = new Scanner(System.in);
+                System.out.println("enter the new lastname of the person? (Y/N)");
+                String newName = sc.nextLine();
+                user.getPerson().setFamilyName(newName);
+            } else {
+                System.out.println("Name of the person remains unchanged.");
+            }
         }
+        else{
+            System.out.println("Incorrect username or password");
+        }
+        personRepository.updatePerson(person);
+        userRepository.updateOne(user);
 
+        //user.setPerson(person);
+
+        System.out.println("User has been updated.");
     }
-
     //TODO: Print een User + Person van de database af door een username in te geven
     public void findOneUserById(){
         Scanner scanner = new Scanner(System.in);
@@ -156,18 +157,28 @@ public class UserService {
     }
 
     //TODO: Toon eerst alle courses. Op basis van de relatie tussen Course, Grade en Person toon je dan alle Persons die die Course hebben gedaan
-    public void showAllPeoplePerCourse(){
-
-        List<User> users = userRepository.getAll();
+    public void showAllPeoplePerCourse(){Scanner scanner = new Scanner(System.in);
+        System.out.println("Give me a courseId");
         List<Course> courses = courseRepository.getAll();
-        Course course = new Course();
-
-        for(User user : userRepository.getUsersByCourse(course)){
-            System.out.println(user);
+        for(Course course:courses){
+            System.out.println(course);
         }
 
+        Long login = scanner.nextLong();
+        List<User> users = userRepository.getAll();
+        Course course = courseRepository.getOneById(login);
 
+        List<Grade> grades = course.getGradesOfCourse();
 
+        List<Person> allPeoplePerCourse = grades.stream().map(Grade::getPerson).collect(Collectors.toList());
+
+        for(Person allPeople : allPeoplePerCourse){
+            System.out.println(allPeople);
+        }
 
     }
+
+
+
+
 }
