@@ -1,18 +1,15 @@
 package be.intecbrussel.schoolsout.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 public class Course {
-
     @Id
     @GeneratedValue
     private Long id;
+    @Column(length = 20)
     private String name;
     private String description;
     private BigDecimal maxGradeYouCanGet;
@@ -84,7 +81,7 @@ public class Course {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", maxGradeYouCanGet=" + maxGradeYouCanGet +
-                ", gradesOfCourse=" + gradesOfCourse +
+
                 '}';
     }
 }

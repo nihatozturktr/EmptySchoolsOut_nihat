@@ -9,15 +9,26 @@ import java.util.List;
 
 public class UserRepository {
 
+
     public User getOneById(String login){
         EntityManager em = EMFactory.getEmf().createEntityManager();
         return em.find(User.class, login);
     }
 
     public List<User> getAll(){
+
         EntityManager em = EMFactory.getEmf().createEntityManager();
         Query query = em.createQuery("Select v from User v");
         return query.getResultList();
+
+    }
+
+    public List<User> getAllThatAreActive(){
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+        Query query = em.createQuery("Select user from User user WHERE user.active = true ");
+        return query.getResultList();
+
+
     }
 
 
@@ -31,14 +42,28 @@ public class UserRepository {
 
     public void updateOne(User user){
 
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+        em.getTransaction().begin();
+        em.merge(user);
+        em.getTransaction().commit();
+
     }
 
     public void deleteOne(String login){
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+
+        User user = em.find(User.class,login);
+
+        em.getTransaction().begin();
+        em.remove(user);
+        em.getTransaction().commit();
 
     }
 
     public List<User> getUsersByCourse(Course course){
-
-        return null;
+        EntityManager em = EMFactory.getEmf().createEntityManager();
+        Query query = em.createQuery("Select g from User g WHERE g.person = :person").setParameter("person", course.getGradesOfCourse());
+        return query.getResultList();
     }
-}
+    }
+

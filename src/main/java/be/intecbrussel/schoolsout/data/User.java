@@ -2,9 +2,9 @@ package be.intecbrussel.schoolsout.data;
 
 import javax.persistence.*;
 
+
 @Entity
 public class User {
-
     @Id
     @Column(length = 20)
     private String login;

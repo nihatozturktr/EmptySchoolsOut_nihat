@@ -4,13 +4,12 @@ import javax.persistence.*;
 
 @Entity
 public class Person {
-
     @Id
     @GeneratedValue
     private Integer id;
     private String firstName;
     private String familyName;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) // for enum
     private Gender gender;
 
     public Person() {
